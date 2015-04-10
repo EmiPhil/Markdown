@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Markdown Tutorial</title>
+        <link rel="stylesheet" type="text/css" href="assets/vendor/normalize.css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendor/codemirror/lib/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendor/codemirror/theme/mdn-like.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    </head>
+<body>
+<nav>
+    <span class="brand">Markdown</span>
+    <ul>
+        <li>
+            <h3 onclick="accordion('n1', this)" class="navHeader">Beginner</h3>
+            <ul id="n1" class="accordion">
+                <li><span onclick="currentNav(this)" class="navLinks" name="Airport">Airport</span></li>
+                <li><span onclick="currentNav(this)" class="navLinks" name="Chinook Mall">Chinook Mall</span></li>
+                <li><span onclick="currentNav(this)" class="navLinks" name="Cross Iron Mills">Cross Iron Mills</span></li>
+            </ul>
+        </li>
+        <li>
+            <h3 onclick="accordion('n2', this)" class="navHeader">Functions</h3>
+            <ul id="n2" class="accordion">
+                <li><span onclick="currentNav(this)" class="navLinks">Not</span></li>
+                <li><span onclick="currentNav(this)" class="navLinks">Yet</span></li>
+                <li><span onclick="currentNav(this)" class="navLinks">Implemented</span></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<div class="wrap" onclick="closeNav()">
+    <div class="leftSide">
+        <div class="input">
+            <div id="codeEditor" class="recepticle" placeholder="Type in me!"></div>
+        </div>
+    </div>
+    <div class="rightSide">
+        <div class="material">
+            <h1>Hello there.</h1>
+            <p>How do you do?</p>
+        </div>
+    </div>
+</div>
+
+<div class="navbar">
+    <a href="#" class="left icon-menu" onclick="openNav()"></a>
+    <a href="#" class="right">Welcome</a>
+</div>
+    <script type="text/javascript" src="assets/vendor/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="assets/vendor/codemirror/mode/markdown/markdown.js"></script>
+    <script type="text/javascript" src="assets/vendor/classie/classie.js"></script>
+    <script type="text/javascript" src="assets/vendor/tweenlite/TweenLite.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/tweenlite-css/CSSPlugin.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="assets/js/bundle.js"></script>
+  </body>
+</html>
