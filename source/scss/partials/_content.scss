@@ -40,7 +40,7 @@
         cursor: pointer;
         display: inline-block;
         height: calc(100% - 40px);
-        padding: 20px;
+        padding: $padding;
         border-right: 1px solid $dividerColor;
         @include respondTo(medium) {
             display: block;
@@ -105,20 +105,43 @@
 }
 
 .material {
-    width: calc(100% - 40px);
-    margin: 20px;
+    width: calc(100% - 60px);
+    margin: $margin;
     box-shadow: $shadow;
+
     h1, h2, h3, h4, h5, h6 {
-        padding: 20px 0 10px 20px;
+        padding: 10px 0 10px 20px;
         color: $themeColor;
     }
 
     p {
-        padding: 0 0 20px 20px;
+        padding: 0 0 10px 20px;
+    }
+
+    p:first-child {
+        padding-top: 10px;
     }
 
     strong {
         color: $themeDarkColor;
+    }
+
+    ol, ul {
+        margin: 0;
+        padding: 0 0 10px 40px;
+    }
+
+    li {
+        padding: 0 0 10px 0;
+    }
+
+    li:last-child {
+        padding: 0;
+    }
+
+    pre {
+        margin: 0;
+        padding: 0 0 10px 20px;
     }
 
     a {
@@ -137,7 +160,7 @@
 
 .input {
     position: relative;
-    margin: 20px;
+    margin: $margin;
     width: calc(100% - 40px);
     height: calc(100% - 40px);
 }

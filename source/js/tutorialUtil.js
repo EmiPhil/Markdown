@@ -5,6 +5,7 @@ var Step = function (name, lesson, md, answer, success, failure) {
     this.md = md;
     this.success = success;
     this.failure = failure;
+    this.content = '';
     this.completed = false;
     this.awesome = true;
 };
@@ -24,7 +25,7 @@ Tutorial.prototype.check = function () {
     * Checks to see if what the user submitted is what they should have. Also
     * accepts middleware through the Step constructor.
     */
-    var step = this.current;
+    var step = currentTutorial.current;
     var success = step.success;
     var failure = step.failure;
 
@@ -33,21 +34,15 @@ Tutorial.prototype.check = function () {
     var result = step.answer(context, step);
 
     if (result) success(context, step);
-
-    failure(context, step);
+    else failure(context, step);
 };
 
-Tutorial.prototype.step = function (name, lesson, answer) {
+Tutorial.prototype.step = function (step) {
     /**
     * Creates a new tutorial step.
-    * @param {name} string - name of lesson
-    * @param {lesson} string - set of instructions
-    * @param {answer} string - what the solution looks like
-    * @returns {Object} As specified
+    * @param {step} object - created by Step constructor
     */
-    var step = new Step(name, lesson, answer);
     this.steps.push(step);
-    return step;
 };
 
 var instructions = document.getElementById('lesson');
@@ -56,11 +51,42 @@ Tutorial.prototype.load = function (step) {
     * Load a given step into the dom.
     * @param {step} object - created by this.step();
     */
+    destroyNotices();
     this.current = step;
     currentTutorial = this;
     this.generateProgBar();
-    this.editorLoad(step.md);
+    this.generateButtons();
+    if (step.content) this.editorLoad(step.content);
+    else this.editorLoad(step.md);
     render(instructions, step.lesson);
+};
+
+var buttonPlaceholder = document.getElementById('buttonPlaceholder');
+Tutorial.prototype.generateButtons = function () {
+    removal(buttonPlaceholder);
+
+    var container = document.createElement('div');
+    classie.add(container, 'buttons');
+
+    var twoButtons = document.createElement('div');
+    classie.add(twoButtons, 'twoButtons');
+
+    var reset = document.createElement('div');
+    classie.add(reset, 'button');
+    reset.textContent = 'Reset';
+    reset.onclick = this.reset;
+
+    var check = document.createElement('div');
+    classie.add(check, 'button');
+    check.textContent = 'Check Answer';
+    check.onclick = this.check;
+
+    twoButtons.appendChild(reset);
+    twoButtons.appendChild(check);
+
+    container.appendChild(twoButtons);
+
+    buttonPlaceholder.appendChild(container);
 };
 
 var progBar = document.getElementById('progBar');
@@ -68,8 +94,7 @@ Tutorial.prototype.generateProgBar = function () {
     /**
     * Load all the steps into the progress bar for easy navigation
     */
-    while (progBar.firstChild)
-        progBar.removeChild(progBar.firstChild);
+    removal(progBar);
 
     var lessonProg = document.createElement('li'),
         lessonProgSpan = document.createElement('span'),
@@ -87,6 +112,10 @@ Tutorial.prototype.generateProgBar = function () {
         var li = document.createElement('li'),
             span = document.createElement('span'),
             text = document.createTextNode(step.name);
+
+        li.onclick = function () {
+            self.load(step);
+        };
 
         if (self.current.name === step.name)
             classie.add(li, 'active');
@@ -110,16 +139,24 @@ Tutorial.prototype.generateProgBar = function () {
     });
 };
 
+Tutorial.prototype.next = function () {
+    /**
+    * Load the next step
+    */
+    var index = _.indexOf(this.steps, this.current);
+    index += 1;
+    this.load(this.steps[index]);
+};
+
 Tutorial.prototype.smartLoad = function () {
     /**
     * Load the first uncompleted step, or the final step if all completed.
-    * @return {Value} Description
     */
-    var self = this;
-    self.steps.forEach(function (step) {
-        if (!step.completed) self.load(step);
+    var step = _.find(this.steps, function (step) {
+        return !step.completed;
     });
-    self.load(_.last(self.steps));
+    if (step) this.load(step);
+    else this.load(_.last(this.steps));
 };
 
 Tutorial.prototype.editorLoad = function (md) {
@@ -135,11 +172,26 @@ Tutorial.prototype.reset = function () {
     /**
     * Reset the tutorial
     */
-    if (this.current.completed) this.current.completed = false;
-    this.load(this.current);
+    var self = currentTutorial;
+    if (self.current.completed) self.current.completed = false;
+    self.current.content = '';
+    self.load(self.current);
 };
 
 // Other utility
+function removal (element) {
+    while (element.firstChild)
+        element.removeChild(element.firstChild);
+}
+
+function clear () {
+    removal(progBar);
+    removal(lesson);
+    destroyModal();
+    destroyNotices();
+    removal(buttonPlaceholder);
+    currentTutorial = undefined;
+}
 
 function tutNav (self) {
     var name = self.textContent;
@@ -152,3 +204,29 @@ function tutProg (self) {
         if (step.name === name) currentTutorial.load(step);
     });
 }
+
+function standardNotice (type) {
+    var text;
+    var button;
+    var action;
+    currentTutorial.current.completed = true;
+    destroyNotices();
+    if (type === 'success') {
+        text = 'Good job!';
+        button = 'Next step';
+        action = function () {
+            destroyNotices();
+            currentTutorial.next();
+        };
+    } else {
+        text = 'Oops! That doesn\'t look quite right. Try again?';
+        button = 'Okay!';
+        action = function () {
+            destroyNotices();
+        };
+    }
+    new Notify(text, button, type, action).render();
+}
+
+var successNotice = _.partial(standardNotice, 'success');
+var failNotice = _.partial(standardNotice, 'failure');

@@ -4,7 +4,11 @@ var Modal = function (header, text, button) {
     this.button = button;
 };
 
+var modalPlaceholder = document.getElementById('messagePlaceholder');
+
 Modal.prototype.render = function () {
+    destroyModal();
+
     var black = document.createElement('div');
     classie.add(black, 'blacken');
 
@@ -15,13 +19,14 @@ Modal.prototype.render = function () {
     classie.add(header, 'messageHeader');
 
     var heading = document.createElement('p');
-    p.textContent = this.header;
+    heading.textContent = this.header;
 
     var close = document.createElement('div');
     classie.add(close, 'messageClose');
 
     var x = document.createElement('span');
     classie.add(x, 'icon-close');
+    x.onclick = destroyModal;
 
     var text = document.createElement('p');
     text.textContent = this.text;
@@ -33,26 +38,62 @@ Modal.prototype.render = function () {
     classie.add(greenButton, 'greenButton');
     greenButton.innerHTML = this.button + 
         '<span class="icon icon-check"></span>';
+    greenButton.onclick = destroyModal;
 
-    var placeHolder = document.getElementById('messagePlaceholder');
     placeHolder.appendChild(black);
 
     header.appendChild(heading);
     close.appendChild(x);
     buttons.appendChild(greenButton);
 
-    placeHolder.appendChild(header);
-    placeHolder.appendChild(close);
-    placeHolder.appendChild(buttons);
+    message.appendChild(header);
+    message.appendChild(close);
+    message.appendChild(text);
+    message.appendChild(buttons);
+
+    placeHolder.appendChild(message);
 };
-/*
-<div class="blacken"></div>
-<div id="message" class="message">
-    <div class="messageHeader">
-        <p>Heading</p>
-    </div>
-    <div class="messageClose"><span class="icon-close"></span></div>
-    <p>Test</p>
-    <div class="buttons"><div class="greenButton">Got it!<span class="icon icon-check"></span></div></div>
-</div>
-*/
+
+function destroyModal () {
+    removal(modalPlaceholder);
+}
+
+var Notify = function (text, button, type, action) {
+    this.text = text;
+    this.button = button;
+    this.type = type.toLowerCase();
+    this.action = action;
+};
+
+var notifyPlaceholder = document.getElementById('notify');
+Notify.prototype.render = function () {
+    var body = document.createElement('div');
+
+    switch (this.type) {
+        case 'success':
+            classie.add(body, 'successNotify');
+            break;
+        case 'failure':
+            classie.add(body, 'failureNotify');
+            break;
+        default:
+            classie.add(body, 'notify');
+    }
+
+    var p = document.createElement('p');
+    p.textContent = this.text;
+
+    var button = document.createElement('div');
+    classie.add(button, 'button');
+    button.textContent = this.button;
+    button.onclick = this.action;
+
+    body.appendChild(p);
+    body.appendChild(button);
+
+    notifyPlaceholder.appendChild(body);
+};
+
+function destroyNotices () {
+    removal(notifyPlaceholder);
+}

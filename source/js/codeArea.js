@@ -19,6 +19,7 @@ var codeMirror = CodeMirror(codeEditor, {
 var timeoutId;
 codeMirror.on('change', function () {
     window.clearTimeout(timeoutId);
+    if (currentTutorial) currentTutorial.current.content = codeMirror.getValue();
     timeoutId = window.setTimeout(render, 1000);
 });
 
@@ -32,8 +33,7 @@ function render (target, source) {
     var parsed = reader.parse(source);
     var result = writer.render(parsed);
 
-    while(target.firstChild)
-        target.removeChild(target.firstChild);
+    removal(target);
 
     target.innerHTML = result;
 }

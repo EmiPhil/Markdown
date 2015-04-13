@@ -11,7 +11,7 @@
     </head>
 <body>
 <nav>
-    <span class="brand">Markdown</span>
+    <span class="brand" onclick="home()">Markdown</span>
     <ul>
         <li>
             <h3 onclick="accordion('n1', this)" class="navHeader">Tutorials</h3>
@@ -35,7 +35,7 @@
     <a href="#" class="left icon-menu" onclick="openNav()"></a>
     <a href="#" class="right" id="namePlace">Welcome</a>
 </div>
-
+<div id="messagePlaceholder"></div>
 <div class="wrap" onclick="closeNav()">
     <div class="progress">
         <ul id="progBar"></ul>
@@ -48,12 +48,8 @@
     <div class="rightSide">
         <div id="lesson" class="material"></div>
         <div id="target" class="material"></div>
-        <div class="buttons">
-            <div class="twoButtons">
-                <div class="button" onclick="currentTutorial.reset()">Reset</div>
-                <div class="button" onclick="currentTutorial.check()">Check Answer</div>
-            </div>
-        </div>
+        <div id="notify"></div>
+        <div id="buttonPlaceholder"></div>
     </div>
 </div>
 

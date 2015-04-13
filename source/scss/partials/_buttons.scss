@@ -1,5 +1,4 @@
 .buttons {
-    position: absolute;
     width: calc(100% - 40px);
     margin: 20px;
     bottom: 0;
@@ -30,6 +29,7 @@
     text-align: center;
     line-height: 64px;
     font-size: 24px;
+    cursor: pointer;
     .icon {
         padding-left: 15px;
     }

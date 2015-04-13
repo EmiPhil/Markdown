@@ -1,5 +1,8 @@
 .message {
     @extend .material;
+    p:first-child {
+        padding-top: 0;
+    }
     position: fixed;
     background: #fff;
     width: 500px;
@@ -49,4 +52,68 @@
     width: 100%;
     background: rgba(0,0,0,0.26);
     z-index: 9;
+}
+
+.notify {
+    position: relative;
+    @extend .material;
+    background: $themeLightColor;
+    color: #fff;
+    height: 64px;
+    p:first-child {
+        padding-top: 0;
+    }
+    p {
+        line-height: 64px;
+        font-size: 24px;
+        margin: 0;
+        width: 75% ;
+    }
+    .button {
+        position: absolute;
+        height: 100%;
+        width: calc(25% - 1px);
+        top: 0;
+        right: 0;
+        border-left: 1px solid $themeColor;
+        box-shadow: none;
+        background: $themeLightColor;
+        text-align: center;
+        line-height: 64px;
+        font-size: 24px;
+    }
+}
+
+.successNotify {
+    @extend .notify;
+    background: $completedColor;
+    .button {
+        border-color: $completedDarkColor;
+        background: $completedColor;
+    }
+
+    .button:hover {
+        background: $completedLightColor;
+    }
+
+    .button:active {
+        background: $completedDarkColor;
+    }
+}
+
+.failureNotify {
+    @extend .notify;
+    background: $failColor;
+    .button {
+        border-color: $failDarkColor;
+        background: $failColor;
+    }
+
+    .button:hover {
+        background: $failLightColor;
+    }
+
+    .button:active {
+        background: $failDarkColor;
+    }
 }
