@@ -1,0 +1,52 @@
+.message {
+    @extend .material;
+    position: fixed;
+    background: #fff;
+    width: 500px;
+    height: 600px;
+    top: calc(50% - 300px);
+    left: calc(50% - 250px);
+    margin: 0;
+    z-index: 10;
+    .greenButton {
+        width: 100%;
+    }
+}
+
+.messageHeader {
+    width: calc(100% - 64px);
+    height: 63px;
+    border-bottom: 1px solid $dividerColor;
+    border-right: 1px solid $dividerColor;
+    p {
+        line-height: 63px;
+        color: $completedColor;
+        font-size: 24px;
+        margin: 0;
+    }
+}
+
+.messageClose {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    width: 63px;
+    height: 63px;
+    border-bottom: 1px solid $dividerColor;
+    span {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        line-height: 63px;
+        font-size: 24px;
+    }
+}
+
+.blacken {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.26);
+    z-index: 9;
+}

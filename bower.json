@@ -4,7 +4,7 @@
         "classie": "latest",
         "codemirror": "latest",
         "underscore": "latest",
-        "markdown": "latest",
+        "commonmark": "latest",
         "normalize.css": "latest",
         "tweenlite": "latest",
         "tweenlite-css": "latest"

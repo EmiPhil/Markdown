@@ -14,10 +14,10 @@
     <span class="brand">Markdown</span>
     <ul>
         <li>
-            <h3 onclick="accordion('n1', this)" class="navHeader">Beginner</h3>
+            <h3 onclick="accordion('n1', this)" class="navHeader">Tutorials</h3>
             <ul id="n1" class="accordion">
-                <li><span onclick="currentNav(this)" class="navLinks" name="Airport">Airport</span></li>
-                <li><span onclick="currentNav(this)" class="navLinks" name="Chinook Mall">Chinook Mall</span></li>
+                <li><span onclick="currentNav(this); tutNav(this);" class="navLinks">Beginner</span></li>
+                <li><span onclick="currentNav(this)" class="navLinks" name="Chinook Mall">Intermediate</span></li>
                 <li><span onclick="currentNav(this)" class="navLinks" name="Cross Iron Mills">Cross Iron Mills</span></li>
             </ul>
         </li>
@@ -31,31 +31,44 @@
         </li>
     </ul>
 </nav>
+<div class="navbar">
+    <a href="#" class="left icon-menu" onclick="openNav()"></a>
+    <a href="#" class="right" id="namePlace">Welcome</a>
+</div>
 
 <div class="wrap" onclick="closeNav()">
+    <div class="progress">
+        <ul id="progBar"></ul>
+    </div>
     <div class="leftSide">
         <div class="input">
-            <div id="codeEditor" class="recepticle" placeholder="Type in me!"></div>
+            <div id="codeEditor" class="recepticle"></div>
         </div>
     </div>
     <div class="rightSide">
-        <div class="material">
-            <h1>Hello there.</h1>
-            <p>How do you do?</p>
+        <div id="lesson" class="material"></div>
+        <div id="target" class="material"></div>
+        <div class="buttons">
+            <div class="twoButtons">
+                <div class="button" onclick="currentTutorial.reset()">Reset</div>
+                <div class="button" onclick="currentTutorial.check()">Check Answer</div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="navbar">
-    <a href="#" class="left icon-menu" onclick="openNav()"></a>
-    <a href="#" class="right">Welcome</a>
-</div>
+<footer>
+    <div class="block"></div>
+    <p> This is where I would put a copyright... <em><b>...if I had one</b></em></p>
+</footer>
+
     <script type="text/javascript" src="assets/vendor/codemirror/lib/codemirror.js"></script>
     <script type="text/javascript" src="assets/vendor/codemirror/mode/markdown/markdown.js"></script>
+    <script type="text/javascript" src="assets/vendor/commonmark/dist/commonmark.js"></script>
     <script type="text/javascript" src="assets/vendor/classie/classie.js"></script>
     <script type="text/javascript" src="assets/vendor/tweenlite/TweenLite.min.js"></script>
     <script type="text/javascript" src="assets/vendor/tweenlite-css/CSSPlugin.min.js"></script>
     <script type="text/javascript" src="assets/vendor/underscore/underscore-min.js"></script>
     <script type="text/javascript" src="assets/js/bundle.js"></script>
-  </body>
+</body>
 </html>

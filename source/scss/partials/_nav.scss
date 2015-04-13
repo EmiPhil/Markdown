@@ -2,10 +2,11 @@ nav {
     background: #fff;
     position: fixed;
     width: 240px;
-    height: 100%;
+    height: calc(100% - 64px);
     left: 0;
+    top: 0;
     color: $textColor;
-    z-index: 1000;
+    z-index: 2;
     border-right: 1px solid $dividerColor;
 
     -webkit-overflow-scrolling: touch;
@@ -64,8 +65,9 @@ nav {
     }
 
     @include respondTo(small) {
+        height: calc(100% - 32px);
         width: 190px;
-        left: -190px;        
+        left: -190px;
     }
 
     @include respondTo(medium) {
