@@ -22,20 +22,19 @@
             </ul>
         </li>
         <li>
-            <h3 onclick="accordion('n2', this)" class="navHeader">Functions</h3>
+            <h3 onclick="accordion('n2', this)" class="navHeader">Playground</h3>
             <ul id="n2" class="accordion">
-                <li><span onclick="currentNav(this)" class="navLinks">Not</span></li>
-                <li><span onclick="currentNav(this)" class="navLinks">Yet</span></li>
-                <li><span onclick="currentNav(this)" class="navLinks">Implemented</span></li>
+                <li><span onclick="currentNav(this); sandbox();" class="navLinks">Sandbox</span></li>
+                <li><span onclick="currentNav(this); cheatSheet();" class="navLinks">Cheat Sheet</span></li>
             </ul>
         </li>
     </ul>
 </nav>
 <div class="navbar">
     <a href="#" class="left icon-menu" onclick="openNav()"></a>
-    <a href="#" class="right" id="namePlace">Welcome</a>
+    <p class="welcome right" id="namePlace">Welcome</p>
 </div>
-<div id="messagePlaceholder"></div>
+<div id="modalPlaceholder"></div>
 <div class="wrap" onclick="closeNav()">
     <div class="progress">
         <ul id="progBar"></ul>
@@ -46,7 +45,7 @@
         </div>
     </div>
     <div class="rightSide">
-        <div id="lesson" class="material"></div>
+        <div id="lesson"></div>
         <div id="target" class="material"></div>
         <div id="notify"></div>
         <div id="buttonPlaceholder"></div>

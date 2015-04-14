@@ -59,3 +59,40 @@ function home () {
     codeMirror.setValue(homeText);
     render();
 }
+
+function sandbox () {
+    clear();
+    codeMirror.setValue('');
+    render();
+}
+
+function cheatSheet () {
+    clear();
+    var md =
+    '# Header1' +
+    '\n## Header 2' +
+    '\n### Header 3' +
+    '\n#### Header 4' +
+    '\n##### Header 5' +
+    '\n###### Header 6' +
+    '\n*Italics*    _Italics_' +
+    '\n\n**Bold**    __Bold__' +
+    '\n\n__*Boldtalics*__    **_Boltalics_**' +
+    '\n\n1. List\n2. Example\n    - Sub' +
+    '\n\n1) Another list\n2) Example\n    * Sub\n    + Sub 2' +
+    '\n\n[Links](https://www.links.com)' +
+    '\n\n```\nCode\n```' +
+    '\n\n`Inline-Code`' +
+    '\n\nDividers:' +
+    '\n***\n\n---\n\n___' +
+    '\n\n> # Blockquotes:\n> Cupcake ipsum dolor sit amet carrot cake I love. Pudding jelly chocolate ice cream. Jelly beans lemon drops I love chocolate cake jujubes dessert. Soufflé I love jelly halvah powder. Gingerbread candy I love topping jujubes dragée chocolate. Halvah fruitcake carrot cake tiramisu.';
+    codeMirror.setValue(md);
+    render();
+}
+
+function renderTopBar (content) {
+    /**
+    * Add some content to the second bar
+    * @param {content} String
+    */
+}

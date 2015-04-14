@@ -1,8 +1,5 @@
 .message {
     @extend .material;
-    p:first-child {
-        padding-top: 0;
-    }
     position: fixed;
     background: #fff;
     width: 500px;
@@ -12,7 +9,13 @@
     margin: 0;
     z-index: 10;
     .greenButton {
+        position: absolute;
+        left: 0;
+        bottom: 0;
         width: 100%;
+    }
+    p {
+        padding-top: 20px;
     }
 }
 
@@ -26,6 +29,9 @@
         color: $completedColor;
         font-size: 24px;
         margin: 0;
+    }
+    p:first-child {
+        padding-top: 0;
     }
 }
 

@@ -4,8 +4,7 @@ var Modal = function (header, text, button) {
     this.button = button;
 };
 
-var modalPlaceholder = document.getElementById('messagePlaceholder');
-
+var modalPlaceholder = document.getElementById('modalPlaceholder');
 Modal.prototype.render = function () {
     destroyModal();
 
@@ -40,7 +39,7 @@ Modal.prototype.render = function () {
         '<span class="icon icon-check"></span>';
     greenButton.onclick = destroyModal;
 
-    placeHolder.appendChild(black);
+    modalPlaceholder.appendChild(black);
 
     header.appendChild(heading);
     close.appendChild(x);
@@ -51,7 +50,7 @@ Modal.prototype.render = function () {
     message.appendChild(text);
     message.appendChild(buttons);
 
-    placeHolder.appendChild(message);
+    modalPlaceholder.appendChild(message);
 };
 
 function destroyModal () {

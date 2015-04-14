@@ -16,6 +16,7 @@ var currentTutorial;
 var Tutorial = function (firstStep, name) {
     this.steps = [firstStep];
     this.current = this.steps[0];
+    this.title = name;
 
     tutorials[name] = this;
 };
@@ -56,6 +57,7 @@ Tutorial.prototype.load = function (step) {
     currentTutorial = this;
     this.generateProgBar();
     this.generateButtons();
+    classie.add(instructions, 'material');
     if (step.content) this.editorLoad(step.content);
     else this.editorLoad(step.md);
     render(instructions, step.lesson);
@@ -145,18 +147,19 @@ Tutorial.prototype.next = function () {
     */
     var index = _.indexOf(this.steps, this.current);
     index += 1;
-    this.load(this.steps[index]);
+    if (this.steps[index]) this.load(this.steps[index]);
+    else this.smartLoad();
 };
 
 Tutorial.prototype.smartLoad = function () {
     /**
-    * Load the first uncompleted step, or the final step if all completed.
+    * Load the first uncompleted step, or congratulate the user.
     */
     var step = _.find(this.steps, function (step) {
         return !step.completed;
     });
     if (step) this.load(step);
-    else this.load(_.last(this.steps));
+    else this.win();
 };
 
 Tutorial.prototype.editorLoad = function (md) {
@@ -166,6 +169,23 @@ Tutorial.prototype.editorLoad = function (md) {
     */
     codeMirror.setValue(md);
     render();
+};
+
+Tutorial.prototype.win = function () {
+    /**
+    * Congratulate the user with a modal
+    */
+    var notWin = false;
+    this.steps.forEach(function (step) {
+        if (!step.completed) notWin = true;
+    });
+    if (notWin) return;
+
+    var header = 'Congratulations!!!';
+    var body = 'You\'ve completed all the ' +
+        this.title + ' challenges.\nWow!';
+    var buttonText = 'I\'m awesome!';
+    new Modal(header, body, buttonText).render();
 };
 
 Tutorial.prototype.reset = function () {
@@ -187,6 +207,7 @@ function removal (element) {
 function clear () {
     removal(progBar);
     removal(lesson);
+    classie.remove(instructions, 'material');
     destroyModal();
     destroyNotices();
     removal(buttonPlaceholder);
