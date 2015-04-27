@@ -83,6 +83,15 @@ nav {
     height: 64px;
     top: 0;
 
+    a {
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        padding: 0 1em 0 1em;
+        font-size: 24px;
+        line-height: 64px;
+    }
+
     .welcome {
         color: #fff;
         display: block;

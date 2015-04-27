@@ -18,3 +18,8 @@ $completedDarkColor: #388E3C;
 $failLightColor: #F44336;
 $failColor: #D32F2F;
 $failDarkColor: #B71C1C;
+
+// For the HTML span tutorial:
+.red {
+    color: $failLightColor;
+}

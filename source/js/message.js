@@ -1,3 +1,8 @@
+/**
+* The modal and the notify bars. Pretty self explanatory I believe. IF you need
+* help here send me a message.
+*/
+
 var Modal = function (header, text, button) {
     this.header = header;
     this.text = text;

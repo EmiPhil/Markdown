@@ -7,6 +7,7 @@
     top: calc(50% - 300px);
     left: calc(50% - 250px);
     margin: 0;
+    padding: none;
     z-index: 10;
     .greenButton {
         position: absolute;
@@ -66,6 +67,7 @@
     background: $themeLightColor;
     color: #fff;
     height: 64px;
+    padding: 0;
     p:first-child {
         padding-top: 0;
     }

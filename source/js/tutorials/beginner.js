@@ -1,3 +1,20 @@
+/**
+* This is a good place to learn the tutorial making structure, so I'll add docs
+* here directly. I won't add redudant comments to the other tutorials.
+* =============================================================================
+* First, we need to create a step. In general, I like to introduce the
+* tutorials with the same type of message. A step has two main text contents:
+*
+* You need a lesson (itself written in markdown) which will be rendered into
+* the topmost box of the right side of the app.
+*
+* You also need the initial markdown that will be in the editor. As the user
+* hits more advanced tutorials, you may wish to omit this section. Do so with
+* an empty string ('') instead of null if you don't want to break it.
+*
+* I like to make both these requirements variables that I will later pass:
+*/
+
 var begStepOneLesson = 
     '# Welcome to the beginner\'s tutorial!' +
     '\n In this section, we will cover the basic components that make ' +
@@ -12,6 +29,31 @@ var begStepOneMD =
     '\n\n Try typing your name in on line **10.**' +
     '\n\n When you are ready to submit, press the Check Answer button below!';
 
+/**
+* Now that we have the big sections done, lets create the Step. The first arg
+* is the name of the step. This will appear in the progress bar, so try to give
+* it a descriptive name. Then pass in the lesson, then the initial markdown.
+*
+* The next function is a required middleware. Basically you write some kind of
+* method to check the input. When the user hits the check button, it will test
+* the code however you say to here. It needs to return true if the user got it
+* right and false otherwise. There are two params here, doc and self. Doc is
+* the text editor and is pretty much required to check input. Self is the step,
+* and I've never used it but maybe you will have a need for it.
+*
+* Next are two middleware functions. The first is what you want to do in case
+* of success, and the second on failure. For the most part, you will want to
+* pass successNotice and failNotice to make it consistent. In certain cases
+* you might want to do a little more. For example, in the into steps I like to
+* ask the user for their name. If they put something in line 10 then I update
+* the welcome message to have their name. Little details are important.
+*
+* Check out the CodeMirror documentation for what you can do with doc.
+* http://codemirror.net/doc/manual.html#api
+* One specific note is that the .getLine method is 0 indexed. So to get line 10
+* you would call doc.getLine(9)
+*/
+
 var begStepOne = new Step('Intro', 
     begStepOneLesson, begStepOneMD, function (doc) {
         /**
@@ -19,7 +61,7 @@ var begStepOne = new Step('Intro',
         * @param {doc} The context of the code editor
         * @param {self} The step
         */
-        var input = doc.getLine(7);
+        var input = doc.getLine(9);
         if (input) return true;
         return false;
     }, function (doc) {
@@ -29,7 +71,6 @@ var begStepOne = new Step('Intro',
         var name = doc.getLine(9);
         var namePlace = document.getElementById('namePlace');
         namePlace.textContent = 'Welcome, ' + name;
-        currentTutorial.generateProgBar();
         standardNotice('success');
     }, function () {
         /**
@@ -37,6 +78,17 @@ var begStepOne = new Step('Intro',
         */
         standardNotice('failure');
     });
+
+/**
+* Now that we have created our first step, lets make the tutorial. Only the
+* first step is passed when you create the tutorial. The other steps will be
+* registered via the Tutorial.step helper method. The second param here is the
+* tutorial name. Give it the same name as what you called the li element in
+* index.html. You have made a link to get to the tutorial, right?
+*
+* IMPORTANT *
+* When you have to add mindless text, make it from http://www.cupcakeipsum.com/
+*/
 
 var beginnersTutorial = new Tutorial(begStepOne, 'Beginner');
 
@@ -64,10 +116,9 @@ var begHeadersMD = 'Content Heading\n\n' +
     '\n Lollipop chocolate carrot cake jelly-o tart topping bear claw macaroon.';
 var begHeaders = new Step('Headers',
     begHeadersLesson, begHeadersMD, function (doc) {
-        var input = doc.getLine(0);
         var check = /^### \w+/;
-        if (check.test(input)) return true;
-        return false;
+        if (!check.test(doc.getLine(0))) return false;
+        return true;
     },
         successNotice, failNotice
     );
@@ -111,6 +162,31 @@ beginnersTutorial.step(begEmphasis);
 
 // ============================================================================
 // ============================================================================
+var begLinesLesson = 
+    '# Lines' +
+    '\nYou can add a line break by adding two spaces at the end of a line.' +
+    '\nSimply pressing enter will continue the text on the current line. To create' +
+    '\na new paragraph, press enter twice.' +
+    '\n### Objective:' +
+    '\nThere is no task in this lesson. Play with the markdown on the left to get' +
+    '\na feel for how it works!';
+
+var begLinesMD =
+    'This is a single line style of text' +
+    '\nseperated in markdown by a new line but not in the rendered output.' +
+    '\n\nNotice the extra space it takes to make a new paragraph.' +
+    '\n\nAdding two spaces at the end of a line...  ' +
+    '\n...will create a new line in the same paragraph.';
+
+var begLines = new Step('Lines',
+    begLinesLesson, begLinesMD, function () { return true; },
+        successNotice, failNotice
+    );
+
+beginnersTutorial.step(begLines);
+
+// ============================================================================
+// ============================================================================
 var begListsLesson = 
     '# Lists' +
     '\n Making lists in markdown is as simple as creating them in a typical word document:' +
@@ -138,10 +214,9 @@ var begListsMD =
 
 var begLists = new Step('Lists',
     begListsLesson, begListsMD, function (doc) {
-        var input = doc.getValue();
         var list = /(## TODO\n)(1. \w+\s\w+\n)(( {4}- (\w+\s)+){3})(2. .+\n)(3. \w+\.)/g;
-        if (list.test(input)) return true;
-        return false;
+        if (!list.test(doc.getValue())) return false;
+        return true;
     },
         successNotice, failNotice
     );
@@ -165,11 +240,9 @@ var begLinksMD = '';
 
 var begLinks = new Step('Links',
     begLinksLesson, begLinksMD, function (doc) {
-        var input = doc.getLine(0);
-        input = input.toLowerCase();
         var check = /\[facebook\]\(https\:\/\/www\.facebook\.com\)/g;
-        if (check.test(input)) return true;
-        return false;
+        if (!check.test(doc.getLine(0).toLowerCase())) return false;
+        return true;
     }, 
         successNotice, failNotice
     );
@@ -197,9 +270,9 @@ var begCodeLesson =
     '\n```' +
     '\n\nCool, huh?' +
     '\n\nYou can make these code blocks by surrouding your content with ``` :' +
-    '\n\n\\```' +
-    '\n\n Some code' +
-    '\n\n\\```' +
+    '\n\n\\```  ' +
+    '\nSome code  ' +
+    '\n\\```' +
     '\n### Objective:' +
     '\nCreate a code block that contains the word \'code\'' +
     '\n\n**Hint:** it will take **3** lines to properly do this challenge.';
@@ -224,25 +297,26 @@ beginnersTutorial.step(begCode);
 // ============================================================================
 var begBlockquotesLesson = 
     '# Blockquotes' +
-    '\nFound a cool new quote about Einstein being a marine? Include it in your' +
+    '\nFound a cool new quote about Einstein being a marine?  \nInclude it in your' +
     '\ncontent using blockquotes! To create a blockquote, simply prepend each line with >:' +
-    '\n\n\\> Blockquotes could be used to show customer testimonies,' +
-    '\n\n\\> for example. That would definitely increase sales.' +
+    '\n\n\\> Blockquotes could be used to show customer testimonies,  ' +
+    '\n\\> for example. That would definitely increase sales.  ' +
     '\n\nRenders to:' +
     '\n\n> Blockquotes could be used to show customer testimonies for example. That would definitely increase sales.' +
     '\n### Objective:' +
-    '\nConvert the text into a blockquote!';
+    '\nConvert the text into a blockquote!' +
+    '\n\n**Hint:** Don\'t forget to add the \'>\' symbol to blank lines!';
 
 var begBlockquotesMD = 
     'Cupcake ipsum dolor. Sit amet cookie gummi bears I love cupcake bonbon I love.' +
-    '\nCandy cotton candy cotton candy pastry. I love icing danish sweet roll jujubes' +
-    '\nice cream bonbon bonbon soufflé. Oat cake macaroon dragée cotton candy croissant' +
-    '\ntopping cookie. Chocolate sesame snaps cake toffee tootsie roll bonbon gingerbread pudding icing.';
+    '\n\nCandy cotton candy cotton candy pastry. I love icing danish sweet roll jujubes.' +
+    '\n\nIce cream bonbon bonbon soufflé. Oat cake macaroon dragée cotton candy croissant.' +
+    '\n\nTopping cookie. Chocolate sesame snaps cake toffee tootsie roll bonbon gingerbread pudding icing.';
 
 var begBlockquote = new Step('Blockquote',
     begBlockquotesLesson, begBlockquotesMD, function (doc) {
         var good = true;
-        var check = /> .+/;
+        var check = />/;
         doc.eachLine(function (handle) {
             var line = handle.text;
             line = line.replace(/\n/g, '');
