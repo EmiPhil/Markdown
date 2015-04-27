@@ -1,0 +1,61 @@
+.buttons {
+    width: calc(100% - 40px);
+    margin: 20px;
+    bottom: 0;
+}
+
+.twoButtons {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    .button {
+        width: calc(100% / 2 - 10px);
+    }
+
+    .button:last-child {
+        float: right;
+    }
+}
+
+
+.button {
+    display: inline-block;
+    height: 64px;
+    border: none;
+    box-shadow: $shadow;
+    color: #fff;
+    background: $themeLightColor;
+    text-align: center;
+    line-height: 64px;
+    font-size: 24px;
+    cursor: pointer;
+    .icon {
+        padding-left: 15px;
+    }
+}
+
+.button:hover {
+    background: $themeColor;
+}
+
+.button:active {
+    background: $themeDarkColor;
+}
+
+.button:focus {
+    border: none;
+}
+
+.greenButton {
+    @extend .button;
+    background: $completedColor;
+}
+
+.greenButton:hover {
+    background: $completedLightColor;
+}
+
+.greenButton:active {
+    background: $completedDarkColor;
+}

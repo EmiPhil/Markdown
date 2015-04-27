@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Markdown Tutorial</title>
+        <link rel="stylesheet" type="text/css" href="assets/vendor/normalize.css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendor/codemirror/lib/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendor/codemirror/theme/mdn-like.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    </head>
+<body>
+
+<nav>
+    <span class="brand" onclick="home()">Markdown</span>
+    <ul>
+        <li>
+            <h3 onclick="accordion('n1', this)" class="navHeader">Tutorials</h3>
+            <ul id="n1" class="accordion">
+                <li><span onclick="currentNav(this); tutNav(this);" class="navLinks">Beginner</span></li>
+                <li><span onclick="currentNav(this); tutNav(this);" class="navLinks">Intermediate</span></li>
+                <li><span onclick="currentNav(this); tutNav(this);" class="navLinks">HTML</span></li>
+            </ul>
+        </li>
+        <li>
+            <h3 onclick="accordion('n2', this)" class="navHeader">Playground</h3>
+            <ul id="n2" class="accordion">
+                <li><span onclick="currentNav(this); sandbox();" class="navLinks">Sandbox</span></li>
+                <li><span onclick="currentNav(this); cheatSheet();" class="navLinks">Cheat Sheet</span></li>
+            </ul>
+        </li>
+        <li>
+            <h3 onclick="accordion('n3', this)" class="navHeader">References</h3>
+            <ul id="n3" class="accordion">
+                <li><span onclick="currentNav(this); credits();" class="navLinks">Credits</span></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<div class="navbar">
+    <a href="#" class="left icon-menu" onclick="openNav()"></a>
+    <p class="welcome right" id="namePlace">Welcome</p>
+</div>
+
+<div id="modalPlaceholder"></div>
+<div class="wrap" onclick="closeNav()">
+    <div class="progress">
+        <ul id="progBar"></ul>
+    </div>
+    <div class="leftSide">
+        <div class="input">
+            <div id="codeEditor" class="recepticle"></div>
+        </div>
+    </div>
+    <div class="rightSide">
+        <div id="lesson"></div>
+        <div id="target" class="material"></div>
+        <div id="notify"></div>
+        <div id="buttonPlaceholder"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="block"></div>
+    <p> This is where I would put a copyright... <em><b>...if I had one</b></em></p>
+</footer>
+
+    <script type="text/javascript" src="assets/vendor/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="assets/vendor/codemirror/mode/markdown/markdown.js"></script>
+    <script type="text/javascript" src="assets/vendor/commonmark/dist/commonmark.js"></script>
+    <script type="text/javascript" src="assets/vendor/classie/classie.js"></script>
+    <script type="text/javascript" src="assets/vendor/tweenlite/TweenLite.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/tweenlite-css/CSSPlugin.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="assets/js/bundle.js"></script>
+
+</body>
+</html>

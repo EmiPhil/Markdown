@@ -1,0 +1,12 @@
+{
+    "name": "Markdown",
+    "dependencies": {
+        "classie": "latest",
+        "codemirror": "latest",
+        "underscore": "latest",
+        "commonmark": "latest",
+        "normalize.css": "latest",
+        "tweenlite": "latest",
+        "tweenlite-css": "latest"
+    }
+}

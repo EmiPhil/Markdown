@@ -1,0 +1,23 @@
+{
+  "name": "gsap",
+  "version": "1.11.5",
+  "description": "GreenSock Animation Platform (GSAP) is a suite of high-performance JavaScript animation tools, including TweenLite, TweenMax, TimelineLite, TimelineMax, various easing equations (EasePack), plugins for things like animating along Bezier paths, tweening RaphaelJS or KineticJS objects, etc. and it also includes an optional jQuery plugin that hijacks the native jQuery.animate() method so that animations perform much better and additional properties can be tweened, like colors, transforms (2D and 3D), boxShadow, borderRadius, clip, and lots more. GSAP has no dependencies on jQuery and it can animate ANY numeric property of ANY object. See http://www.greensock.com/gsap-js/ for details.",
+  "author": {
+    "name": "Jack Doyle",
+    "url": "http://www.greensock.com/gsap-js/"
+  },
+  "main": "CSSPlugin.min.js",
+  "dependencies": {
+    "tweenlite": ">=1.11.5"
+  },
+  "homepage": "https://github.com/jjhan1986/TweenLite-CSS",
+  "_release": "1.11.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.11.5",
+    "commit": "3a79e920244bd356a02d7dc66f8b2b8a2b9f590c"
+  },
+  "_source": "git://github.com/jjhan1986/TweenLite-CSS.git",
+  "_target": "*",
+  "_originalSource": "tweenlite-css"
+}
