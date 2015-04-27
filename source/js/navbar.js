@@ -22,10 +22,10 @@ function accordion (target, self) {
     target = document.getElementById(target);
     if (target.classList.contains('open')) {
         classie.toggle(target, 'open');
-        TweenLite.to(target, 0.5, { 'max-height' : 0 });
+        TweenLite.to(target, 0.5, { maxHeight : 0 });
     } else {
         classie.toggle(target, 'open');
-        TweenLite.to(target, 0.5, { 'max-height' : '250px' });
+        TweenLite.to(target, 0.5, { maxHeight : '250px' });
     }
 }
 
