@@ -22,13 +22,15 @@
     width: 100%;
     height: 63px;
     border-bottom: 1px solid $dividerColor;
-    overflow-y: auto;
     
     ul {
         padding: 0;
         margin: 0;
         height: 100%;
         list-style: none;
+        overflow-x: auto;
+        white-space: nowrap;
+
         @include respondTo(medium) {
             :last-child {
                 border: none;
@@ -42,12 +44,7 @@
         height: calc(100% - 40px);
         padding: $padding;
         border-right: 1px solid $dividerColor;
-        @include respondTo(medium) {
-            display: block;
-            width: calc(100% - 40px);
-            border-right: none;
-            border-bottom: 1px solid $dividerColor;
-        }
+        white-space: normal;
     }
 
     .active {
